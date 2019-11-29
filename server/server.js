@@ -9,7 +9,13 @@ app.get("/", (req, res) => {
 io.on("connection", socket => {
   console.log("new connection");
 
-  socket.on("chat message", msg => console.log(msg));
+  socket.broadcast.emit("chat message", "you are now connected");
+
+  socket.on("chat message", msg => {
+    io.emit("chat message", msg);
+    // socket.broadcast.emit("hi");
+    console.log(msg);
+  });
 
   socket.on("disconnect", () => console.log("user disconnected"));
 });
