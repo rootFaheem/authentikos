@@ -11,11 +11,26 @@
       #messages { list-style-type: none; margin: 0; padding: 0; }
       #messages li { padding: 5px 10px; }
       #messages li:nth-child(odd) { background: #eee; }
+
+      #onlineusers {
+          padding: 10px;
+      }
+
+      #usr {
+        padding: 5px;
+        color: green;
+      }
     </style>
 
 <script src="https://code.jquery.com/jquery-1.11.1.js"></script>
 
 <script>
+
+
+$("usr").click(function(){
+  console.log("user id ::", $(this).pre().val())
+});
+
     $(function () {
     var socket = io();
     $('form').submit(function(e){
@@ -28,6 +43,10 @@
     socket.on("chat message", (msg, users) => {
       console.log(msg);
       console.log(users);
+      for(let i = 0; i < users.length; i++) {
+        console.log("dataaaaa::", (users[i]))
+        $('#onlineusers').append($(`<li id="usr" >`).text(users[i]));
+        }
     })
 
     socket.on("send message", (msg) => {
@@ -39,6 +58,9 @@
 
   </head>
   <body>
+      <h1>Online Users:</h1>
+      <ul id="onlineusers">
+      </ul>
     <ul id="messages"></ul>
     <form action="">
       <input id="m" autocomplete="off" /><button>Send</button>
