@@ -20,12 +20,17 @@
     var socket = io();
     $('form').submit(function(e){
       e.preventDefault(); // prevents page reloading
-      socket.emit('chat message', $('#m').val());
+      socket.emit('send message', $('#m').val());
       $('#m').val('');
       return false;
     });
 
-    socket.on("chat message", (msg) => {
+    socket.on("chat message", (msg, users) => {
+      console.log(msg);
+      console.log(users);
+    })
+
+    socket.on("send message", (msg) => {
       console.log(msg)
     })
   });

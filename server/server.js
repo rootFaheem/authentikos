@@ -14,12 +14,18 @@ app.get("/", (_, res) => {
 
 io.on("connection", function(socket) {
   console.log("new user connected");
-  io.emmit("chat message", function(msg) {
-    console.log("message: " + msg);
+
+  userList.push(socket.id);
+  socket.on("send message", msg => {
+    console.log("message::", msg);
+    socket.emit("send message", msg);
   });
+
+  io.emit("chat message", "hi there", userList);
 
   socket.on("disconnect", () => {
     console.log("user disconnected");
+    userList.splice(userList.indexOf(socket.id), 1);
   });
 });
 
