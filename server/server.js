@@ -9,6 +9,8 @@ app.get("/", (req, res) => {
 io.on("connection", socket => {
   console.log("new connection");
 
+  socket.on("chat message", msg => console.log(msg));
+
   socket.on("disconnect", () => console.log("user disconnected"));
 });
 
