@@ -17,25 +17,18 @@
 
 <script>
     $(function () {
-      var socket = io("/quiz");
-      $('form').submit(function(e){
-        e.preventDefault(); // prevents page reloading
-        socket.emit('say to someone', $('#m').val());
-        $('#m').val('');
-        return false;
-      });
-
-      socket.on("my message", (msg) => {
-            console.log(msg)
-      })
-
-      socket.on("play", (msg1, msg2) => {
-          console.log(msg1)
-          console.log(msg2)
-      $('#messages').append($('<li>').text(msg1 + msg2));
+    var socket = io();
+    $('form').submit(function(e){
+      e.preventDefault(); // prevents page reloading
+      socket.emit('chat message', $('#m').val());
+      $('#m').val('');
+      return false;
     });
 
-    });
+    socket.on("chat message", (msg) => {
+      console.log(msg)
+    })
+  });
   </script>
 
 
