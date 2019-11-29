@@ -1,0 +1,38 @@
+<!doctype html>
+<html>
+  <head>
+    <title>Authentikos</title>
+    <style>
+    </style>
+
+<script src="https://code.jquery.com/jquery-1.11.1.js"></script>
+
+<script>
+    $(function () {
+      var socket = io();
+      var socket1 = io("/quiz");
+
+      socket.on("hi", function(msg){
+          console.log(msg)
+       });
+
+        socket1.on("my message", (msg) => {
+            console.log(msg)
+      })
+
+    
+
+
+    });
+  </script>
+
+
+  </head>
+  <body style="text-align: center;">
+    
+    <h1>Welcome to Authentikos</h1>
+    <a href="http://localhost:8079/chat">Go to chat</a>
+    <script src="/socket.io/socket.io.js"></script>
+
+  </body>
+</html>

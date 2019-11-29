@@ -17,16 +17,22 @@
 
 <script>
     $(function () {
-      var socket = io();
+      var socket = io("/quiz");
       $('form').submit(function(e){
         e.preventDefault(); // prevents page reloading
-        socket.emit('chat message', $('#m').val());
+        socket.emit('say to someone', $('#m').val());
         $('#m').val('');
         return false;
       });
 
-      socket.on('chat message', function(msg){
-      $('#messages').append($('<li>').text(msg));
+      socket.on("my message", (msg) => {
+            console.log(msg)
+      })
+
+      socket.on("play", (msg1, msg2) => {
+          console.log(msg1)
+          console.log(msg2)
+      $('#messages').append($('<li>').text(msg1 + msg2));
     });
 
     });
@@ -41,8 +47,6 @@
     </form>
 
     <script src="/socket.io/socket.io.js"></script>
-<script>
-  var socket = io();
-</script>
+
   </body>
 </html>
