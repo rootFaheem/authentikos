@@ -14,11 +14,12 @@ const styles = theme => ({
 
 class chat extends Component {
   render() {
+    const { classes } = this.props;
     return (
       <div>
         <Grid container>
           <Grid item sm={4}>
-            <Paper>
+            <Paper className={classes.paper}>
               <Typography variant="h5">Online Users</Typography>
             </Paper>
           </Grid>

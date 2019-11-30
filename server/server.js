@@ -8,9 +8,9 @@ const userList = [];
 //   res.sendFile(__dirname + "/template/landing.html");
 // });
 
-app.get("/", (_, res) => {
-  res.sendFile(__dirname + "/template/index.html");
-});
+// app.get("/", (_, res) => {
+//   res.sendFile(__dirname + "/template/index.html");
+// });
 
 io.on("connection", function(socket) {
   console.log("new user connected");
@@ -21,7 +21,7 @@ io.on("connection", function(socket) {
     socket.emit("send message", msg);
   });
 
-  io.emit("chat message", "hi there", userList);
+  io.emit("home", "hi there", userList);
 
   socket.on("disconnect", () => {
     console.log("user disconnected");
