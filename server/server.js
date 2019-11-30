@@ -3,6 +3,7 @@ const http = require("http").createServer(app);
 const io = require("socket.io")(http);
 
 const userList = [];
+const messageList = [];
 
 // app.get("/", (_, res) => {
 //   res.sendFile(__dirname + "/template/landing.html");
@@ -20,7 +21,8 @@ io.on("connection", function(socket) {
 
   socket.on("send message", msg => {
     console.log("message::", msg);
-    socket.emit("send message", msg);
+    messageList.push(msg);
+    socket.emit("send message", messageList);
   });
 
   io.emit("chat", userList);

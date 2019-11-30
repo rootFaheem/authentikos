@@ -32,13 +32,21 @@ const styles = theme => ({
   li: {
     color: "green",
     padding: "8px 0px"
+  },
+  msg: {
+    // color: "#bbb",
+    padding: "10px 5px",
+    margin: "20px",
+    listStyle: "none",
+    textAlign: "left",
+    background: "#eee"
   }
 });
 
 class chat extends Component {
   state = {
     users: "",
-    messages: "",
+    messageList: "",
     text: ""
   };
 
@@ -56,14 +64,10 @@ class chat extends Component {
       this.setState({ users: user });
     });
 
-    chatSocket.on("message", newMsg => {
-      let messages = this.state;
-
-      console.log("new MSG:", newMsg);
-
-      messages.push(newMsg);
+    chatSocket.on("send message", messageList => {
+      console.log("new MSG LISt:", messageList);
       this.setState({
-        messages
+        messageList
       });
     });
   };
@@ -80,6 +84,9 @@ class chat extends Component {
 
     chatSocket.emit("send message", this.state.text);
     console.log("API successful");
+    this.setState({
+      text: ""
+    });
   };
 
   render() {
@@ -87,10 +94,10 @@ class chat extends Component {
 
     const { users } = this.state;
 
-    const { messages } = this.state;
+    const { messageList } = this.state;
 
     let onlineUsers = "";
-    let messagesList = "";
+    let messageLister = "";
 
     if (users !== "") {
       onlineUsers = users.map((item, _i) => {
@@ -102,10 +109,10 @@ class chat extends Component {
       });
     }
 
-    if (messages !== "") {
-      messagesList = messages.map((msg, _i) => {
+    if (messageList !== "") {
+      messageLister = messageList.map((msg, _i) => {
         return (
-          <li key={_i} className={classes.li}>
+          <li key={_i} className={classes.msg}>
             {msg}
           </li>
         );
@@ -124,7 +131,7 @@ class chat extends Component {
           <Grid item sm={8} className={classes.grid}>
             <Paper className={classes.paper}>
               <Typography variant="h5">Chat Section</Typography>
-              <ul>{messagesList}</ul>
+              <ul>{messageLister}</ul>
             </Paper>
             <div>
               <TextField
