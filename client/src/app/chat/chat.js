@@ -40,6 +40,10 @@ const styles = theme => ({
     listStyle: "none",
     textAlign: "left",
     background: "#eee"
+  },
+  messageList: {
+    maxHeight: "500px",
+    overflow: "scroll"
   }
 });
 
@@ -131,7 +135,7 @@ class chat extends Component {
           <Grid item sm={8} className={classes.grid}>
             <Paper className={classes.paper}>
               <Typography variant="h5">Chat Section</Typography>
-              <ul>{messageLister}</ul>
+              <ul className={classes.messageList}>{messageLister}</ul>
             </Paper>
             <div>
               <TextField
