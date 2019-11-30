@@ -33,7 +33,6 @@ class chat extends Component {
     const chatSocket = io("http://localhost:8079");
 
     chatSocket.on("chat", user => {
-      // console.log("users::", user);
       this.setState({ users: user });
     });
   };
@@ -49,8 +48,7 @@ class chat extends Component {
       onlineUsers = users.map((item, _i) => {
         return (
           <li key={_i} className={classes.li}>
-            {" "}
-            {item}
+            {item.name}
           </li>
         );
       });

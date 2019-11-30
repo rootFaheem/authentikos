@@ -13,9 +13,11 @@ const userList = [];
 // });
 
 io.on("connection", function(socket) {
-  console.log("new user connected");
+  socket.on("login", name => {
+    console.log("name insert: ", name);
+    userList.push({ id: socket.id, name });
+  });
 
-  userList.push(socket.id);
   socket.on("send message", msg => {
     console.log("message::", msg);
     socket.emit("send message", msg);
