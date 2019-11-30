@@ -31,7 +31,7 @@ io.on("connection", function(socket) {
   );
 
   socket.on("disconnect", () => {
-    console.log("user disconnected");
+    console.log("user disconnected with id = ", socket.id);
     userList.splice(userList.indexOf(socket.id), 1);
   });
 });
