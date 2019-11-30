@@ -21,7 +21,12 @@ io.on("connection", function(socket) {
     socket.emit("send message", msg);
   });
 
-  io.emit("home", "hi there", userList);
+  io.emit("chat", userList);
+
+  io.emit(
+    "home",
+    "Welcome to the Authentikos, you are connected to Scoket now"
+  );
 
   socket.on("disconnect", () => {
     console.log("user disconnected");
