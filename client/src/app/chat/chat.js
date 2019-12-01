@@ -63,6 +63,11 @@ class chat extends Component {
 
     chatSocket.emit("login", randomName);
 
+    chatSocket.on("join", { name, room }, () => {
+      console.log("user name:", name);
+      console.log("user room:", room);
+    });
+
     chatSocket.on("chat", user => {
       console.log("user", user);
       this.setState({ users: user });
