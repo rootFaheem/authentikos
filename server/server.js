@@ -1,41 +1,14 @@
-const app = require("express")();
-const http = require("http").createServer(app);
-const io = require("socket.io")(http);
+const express = require("express");
+const http = require("http");
+const socketio = require("socket.io");
 
-const userList = [];
-const messageList = [];
+const PORT = process.env.PORT || 8079;
 
-// app.get("/", (_, res) => {
-//   res.sendFile(__dirname + "/template/landing.html");
-// });
+const app = express();
+const server = http.createServer(app);
 
-// app.get("/", (_, res) => {
-//   res.sendFile(__dirname + "/template/index.html");
-// });
+const io = socketio(server);
 
-io.on("connection", function(socket) {
-  socket.on("login", name => {
-    console.log("name insert: ", name);
-    userList.push({ id: socket.id, name });
-  });
-
-  socket.on("send message", msg => {
-    console.log("message::", msg);
-    messageList.push(msg);
-    socket.emit("send message", messageList);
-  });
-
-  io.emit("chat", userList);
-
-  io.emit(
-    "home",
-    "Welcome to the Authentikos, you are connected to Scoket now"
-  );
-
-  socket.on("disconnect", () => {
-    console.log("user disconnected with id = ", socket.id);
-    userList.splice(userList.indexOf(socket.id), 1);
-  });
+server.listen(PORT, () => {
+  console.log(` 🚀  Server is running on port ${PORT}`);
 });
-
-http.listen(8079, () => console.log("server running at ", 8079));
