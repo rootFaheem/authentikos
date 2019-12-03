@@ -14,7 +14,10 @@ const {
   addUser,
   removeUser,
   getUser,
-  getUsersInRomm
+  getUsersInRomm,
+
+  scoreUpdate,
+  getQuizResults
 } = require("./app/users/users.utils");
 
 io.on("connection", socket => {
@@ -61,6 +64,12 @@ io.on("connection", socket => {
       setTimeout(() => {
         console.log("question::", question);
         socket.emit("quiz", question);
+
+        socket.on("playQuiz", { choice }, async () => {
+          console.log(id, choice, rightAnswer, question.question);
+
+          await scoreUpdate(id, choice, rightAnswer, question.question);
+        });
       }, 5000 + offset);
       offset += 5000;
     });

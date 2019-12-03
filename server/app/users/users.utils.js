@@ -33,13 +33,12 @@ const getUsersInRomm = room => users.filter(user => user.room === room);
 
 // QUIZ CALCULATIONS
 const scoreUpdate = async (id, choice, rightChoice, question) => {
-  const user = await users.find(user => user.id === id);
-
   if (rightChoice === choice) {
     const result = {
       id,
       name: user.name,
-      score
+      question,
+      choice
     };
 
     quizResults.push(result);
