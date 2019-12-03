@@ -2,6 +2,8 @@ import React, { useState, useEffect } from "react";
 import queryString from "query-string";
 import io from "socket.io-client";
 
+import ChatBox from "../components/chatBox/chatBox";
+
 let socket;
 
 const Chat = ({ location }) => {
@@ -52,14 +54,32 @@ const Chat = ({ location }) => {
 
   return (
     <div>
-      <input
-        type="text"
-        value={message}
-        onChange={event => setMessage(event.target.value)}
-        onKeyPress={event =>
-          event.key === "Enter" ? sendMessage(event) : null
-        }
-      ></input>
+      <div
+        style={{
+          width: "700px",
+          margin: "auto",
+          marginTop: "0",
+          border: "2px solid #eee",
+          borderRadius: "8px",
+          padding: "20px"
+        }}
+      >
+        <ChatBox messages={messages}></ChatBox>
+        
+        <input
+          type="text"
+          value={message}
+          onChange={event => setMessage(event.target.value)}
+          onKeyPress={event =>
+            event.key === "Enter" ? sendMessage(event) : null
+          }
+          placeholder="Enter you message then hit Enter"
+          style={{
+            width: "100%",
+            lineHeight: "30px"
+          }}
+        ></input>
+      </div>
     </div>
   );
 };
