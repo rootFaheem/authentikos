@@ -1,4 +1,5 @@
 const users = [];
+const quizResults = [];
 
 const addUser = ({ id, name, room }) => {
   name = name.trim().toLowerCase();
@@ -30,4 +31,30 @@ const getUser = id => users.find(user => user.id === id);
 
 const getUsersInRomm = room => users.filter(user => user.room === room);
 
-module.exports = { addUser, removeUser, getUser, getUsersInRomm };
+// QUIZ CALCULATIONS
+const scoreUpdate = async (id, choice, rightChoice, question) => {
+  const user = await users.find(user => user.id === id);
+
+  if (rightChoice === choice) {
+    const result = {
+      id,
+      name: user.name,
+      score
+    };
+
+    quizResults.push(result);
+  }
+};
+
+const getQuizResults = () => {
+  return { quizResults };
+};
+
+module.exports = {
+  addUser,
+  removeUser,
+  getUser,
+  getUsersInRomm,
+  scoreUpdate,
+  getQuizResults
+};

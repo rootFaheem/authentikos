@@ -8,6 +8,8 @@ const server = http.createServer(app);
 
 const io = socketio(server);
 
+const { quizQuestions } = require("./app/quiz/quizQuestions.json");
+
 const {
   addUser,
   removeUser,
@@ -44,6 +46,16 @@ io.on("connection", socket => {
     io.to(user.room).emit("message", { user: user.name, text: message });
 
     callback();
+  });
+
+  //  QUIZ QUESTIONS
+  let offset = 0;
+  quizQuestions.forEach(question => {
+    setTimeout(() => {
+      console.log("question::", question);
+      socket.emit("quiz", question);
+    }, 5000 + offset);
+    offset += 5000;
   });
 
   socket.on("disconnect", () => {

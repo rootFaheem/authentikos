@@ -1,0 +1,37 @@
+{
+    "quizQuestions": [
+        { 
+            "question": "Best batsman ever?",
+            "answers": [
+                "ABD",
+                "VK",
+                "Dhoni",
+                "Roy"
+            ],
+            "rightAnswer": 0,
+            "time": 1000
+        },
+        { 
+            "question": "Best bowler ever?",
+            "answers": [
+                "Tait",
+                "Bhuvi",
+                "Steyn",
+                "Lee"
+            ],
+            "rightAnswer": 4,
+            "time": 1000
+        },
+        { 
+            "question": "Elon's Best Company?",
+            "answers": [
+                "SpaceX",
+                "Tesla",
+                "Hyperloop",
+                "PayPal"
+            ],
+            "rightAnswer": 4,
+            "time": 1000
+        }
+    ]
+}

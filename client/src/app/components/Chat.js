@@ -14,6 +14,8 @@ const Chat = ({ location }) => {
   const [message, setMessage] = useState("");
   const [messages, setMessages] = useState([]);
 
+  const [question, setQuestion] = useState("");
+
   // JOIN AND DISCONNECT
   useEffect(() => {
     const { name, room } = queryString.parse(location.search);
@@ -23,10 +25,10 @@ const Chat = ({ location }) => {
     setRoom(room);
 
     socket.emit("join", { name, room }, res => {
-      console.log(res);
+      // console.log(res);
     });
 
-    console.log(socket);
+    // console.log(socket);
 
     return () => {
       socket.emit("disconnect");
@@ -49,8 +51,16 @@ const Chat = ({ location }) => {
     }
   };
 
-  console.log("message:", message);
-  console.log("messages:", messages);
+  // QUIZ QUESTIONS
+  useEffect(() => {
+    socket.on("quiz", question => {
+      // console.log("question:::", question);
+      setQuestion(question);
+    });
+  });
+
+  // console.log("message:", message);
+  // console.log("messages:", messages);
 
   return (
     <div>
@@ -64,8 +74,7 @@ const Chat = ({ location }) => {
           padding: "20px"
         }}
       >
-        <ChatBox messages={messages}></ChatBox>
-        
+        <ChatBox messages={messages} question={question}></ChatBox>
         <input
           type="text"
           value={message}

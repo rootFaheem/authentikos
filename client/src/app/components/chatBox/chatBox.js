@@ -3,12 +3,20 @@ import React, { Fragment } from "react";
 import userIcon from "../../../assets/user.png";
 
 const chatBox = props => {
-  console.log(props.messages);
+  //   const [quiz, setQuiz] = useState("");
+  const { messages, question } = props;
+  let quiz = false;
 
-  const { messages } = props;
+  if (question) {
+    quiz = true;
+  }
 
   return (
-    <div>
+    <div
+      style={{
+        height: "600px"
+      }}
+    >
       <div
         style={{
           color: "#fff",
@@ -28,44 +36,25 @@ const chatBox = props => {
             listStyle: "none"
           }}
         >
-          {messages
-            ? messages.map((item, _i) => (
-                <div key={_i} style={{ display: "flex" }}>
+          {quiz && question ? (
+            <div>
+              <h3>{question.question}</h3>
+              <ul style={{ listStyle: "none" }}>
+                {question.answers.map((answer, _i) => (
                   <li
+                    key={_i}
                     style={{
                       background: "#eee",
-                      padding: "15px",
-                      margin: "10px",
-                      display: "inline"
+                      padding: "10px 30px",
+                      margin: "20px"
                     }}
                   >
-                    {item.text}
+                    {answer}
                   </li>
-                  <div
-                    style={{
-                      paddingTop: "20px",
-                      marginLeft: "50px"
-                    }}
-                  >
-                    <img
-                      style={{
-                        display: "inline"
-                      }}
-                      src={userIcon}
-                    ></img>
-                    <p
-                      style={{
-                        display: "inline",
-                        marginLeft: "5px",
-                        fontStyle: "italic"
-                      }}
-                    >
-                      {item.user}
-                    </p>
-                  </div>
-                </div>
-              ))
-            : null}
+                ))}
+              </ul>
+            </div>
+          ) : null}
         </ul>
       </div>
     </div>
