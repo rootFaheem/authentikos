@@ -4,7 +4,7 @@ import userIcon from "../../../assets/user.png";
 
 const chatBox = props => {
   //   const [quiz, setQuiz] = useState("");
-  const { messages, question } = props;
+  const { messages, question, quizEnd } = props;
   let quiz = false;
 
   if (question) {
@@ -36,7 +36,7 @@ const chatBox = props => {
             listStyle: "none"
           }}
         >
-          {quiz && question ? (
+          {quiz && question && quizEnd !== true ? (
             <div>
               <h3>{question.question}</h3>
               <ul style={{ listStyle: "none" }}>
@@ -54,7 +54,9 @@ const chatBox = props => {
                 ))}
               </ul>
             </div>
-          ) : null}
+          ) : (
+            <i>Quiz will start in 1 minute...</i>
+          )}
         </ul>
       </div>
     </div>

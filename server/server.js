@@ -1,11 +1,11 @@
 const express = require("express");
 const http = require("http");
 const socketio = require("socket.io");
+const cron = require("node-cron");
 
 const PORT = process.env.PORT || 8079;
 const app = express();
 const server = http.createServer(app);
-
 const io = socketio(server);
 
 const { quizQuestions } = require("./app/quiz/quizQuestions.json");
@@ -49,13 +49,21 @@ io.on("connection", socket => {
   });
 
   //  QUIZ QUESTIONS
-  let offset = 0;
-  quizQuestions.forEach(question => {
+
+  cron.schedule("* * * * *", async () => {
+    console.log("running a task every minute");
+    let offset = 0;
+    await quizQuestions.forEach(question => {
+      setTimeout(() => {
+        console.log("question::", question);
+        socket.emit("quiz", question);
+      }, 5000 + offset);
+      offset += 5000;
+    });
+
     setTimeout(() => {
-      console.log("question::", question);
-      socket.emit("quiz", question);
-    }, 5000 + offset);
-    offset += 5000;
+      socket.emit("quizEnd", true);
+    }, 20000);
   });
 
   socket.on("disconnect", () => {

@@ -13,6 +13,7 @@ const Chat = ({ location }) => {
   const [room, setRoom] = useState("");
   const [message, setMessage] = useState("");
   const [messages, setMessages] = useState([]);
+  const [quizEnd, setQuizEnd] = useState([]);
 
   const [question, setQuestion] = useState("");
 
@@ -57,6 +58,12 @@ const Chat = ({ location }) => {
       // console.log("question:::", question);
       setQuestion(question);
     });
+
+    socket.on("quizEnd", status => {
+      console.log("status:", status);
+
+      setQuizEnd(status);
+    });
   });
 
   // console.log("message:", message);
@@ -74,7 +81,11 @@ const Chat = ({ location }) => {
           padding: "20px"
         }}
       >
-        <ChatBox messages={messages} question={question}></ChatBox>
+        <ChatBox
+          messages={messages}
+          question={question}
+          quizEnd={quizEnd}
+        ></ChatBox>
         <input
           type="text"
           value={message}
