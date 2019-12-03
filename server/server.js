@@ -65,10 +65,23 @@ io.on("connection", socket => {
         console.log("question::", question);
         socket.emit("quiz", question);
 
-        socket.on("playQuiz", { choice }, async () => {
-          console.log(id, choice, rightAnswer, question.question);
+        socket.on("playQuiz", async ({ choice, name }, callback) => {
+          console.log("user anser:::::", choice);
+          // console.log(
+          //   socket.id,
+          //   choice,
+          //   question.rightAnswer,
+          //   question.question
+          // );
 
-          await scoreUpdate(id, choice, rightAnswer, question.question);
+          await scoreUpdate(
+            socket.id,
+            choice,
+            name,
+            question.rightAnswer,
+            question.question
+          );
+          callback();
         });
       }, 5000 + offset);
       offset += 5000;
@@ -76,7 +89,11 @@ io.on("connection", socket => {
 
     setTimeout(() => {
       socket.emit("quizEnd", true);
-    }, 20000);
+
+      const quizResult = getQuizResults();
+      console.log("getQuizResults:::::::", quizResult);
+      socket.emit("getresult", quizResult);
+    }, 50000);
   });
 
   socket.on("disconnect", () => {

@@ -32,16 +32,17 @@ const getUser = id => users.find(user => user.id === id);
 const getUsersInRomm = room => users.filter(user => user.room === room);
 
 // QUIZ CALCULATIONS
-const scoreUpdate = async (id, choice, rightChoice, question) => {
+const scoreUpdate = async (id, choice, name, rightChoice, question) => {
   if (rightChoice === choice) {
     const result = {
       id,
-      name: user.name,
       question,
+      name,
       choice
     };
 
     quizResults.push(result);
+    console.log("resut pushed:::", result);
   }
 };
 

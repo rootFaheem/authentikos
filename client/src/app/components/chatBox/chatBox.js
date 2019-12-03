@@ -1,9 +1,6 @@
 import React, { Fragment } from "react";
 
-import userIcon from "../../../assets/user.png";
-
 const chatBox = props => {
-  //   const [quiz, setQuiz] = useState("");
   const { messages, question, quizEnd } = props;
   let quiz = false;
 
@@ -47,6 +44,10 @@ const chatBox = props => {
                       background: "#eee",
                       padding: "10px 30px",
                       margin: "20px"
+                    }}
+                    onClick={() => {
+                      console.log("choice:", _i);
+                      props.choiceHandler(_i);
                     }}
                   >
                     {answer}
