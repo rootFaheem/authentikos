@@ -2,6 +2,8 @@ import React, { useState, useEffect } from "react";
 import queryString from "query-string";
 import io from "socket.io-client";
 
+
+
 let socket;
 
 const Chat = ({ location }) => {
@@ -25,7 +27,7 @@ const Chat = ({ location }) => {
 
     return () => {
       socket.emit("disconnect");
-      scoekt.off();
+      socket.off();
     };
   }, [ENDPOINT, location.search]);
 
