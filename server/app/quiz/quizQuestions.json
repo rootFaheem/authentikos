@@ -12,7 +12,18 @@
             "time": 1000
         },
         { 
-            "question": "Best bowler ever?",
+            "question": "The company name who has build the The Selector App?",
+            "answers": [
+                "Tencent Games",
+                "Stadia Google",
+                "Story Digital",
+                "Timi Studio"
+            ],
+            "rightAnswer": 2,
+            "time": 1000
+        },
+        { 
+            "question": "Best bowler ever in cricket history?",
             "answers": [
                 "Tait",
                 "Bhuvi",
@@ -23,14 +34,23 @@
             "time": 1000
         },
         { 
-            "question": "Elon's Best Company?",
+            "question": "Elon's Best Company in term of humanity?",
             "answers": [
                 "SpaceX",
                 "Tesla",
                 "Hyperloop",
                 "PayPal"
             ],
-            "rightAnswer": 4,
+            "rightAnswer": 0,
+            "time": 1000
+        },
+        { 
+            "question": "Who is the winner of The Selector Fan Cup?",
+            "answers": [
+                "Bravo XI",
+                "Pollard XI"
+            ],
+            "rightAnswer": 1,
             "time": 1000
         }
     ]

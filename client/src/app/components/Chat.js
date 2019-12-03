@@ -62,6 +62,9 @@ const Chat = ({ location }) => {
     socket.on("quizEnd", status => {
       console.log("status:", status);
 
+      if (status === false) {
+        setQuestion();
+      }
       setQuizEnd(status);
     });
   });

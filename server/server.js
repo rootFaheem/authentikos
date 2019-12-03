@@ -52,6 +52,10 @@ io.on("connection", socket => {
 
   cron.schedule("* * * * *", async () => {
     console.log("running a task every minute");
+
+    // RESET PREVIOUS QUIZ
+    socket.emit("quizEnd", false);
+
     let offset = 0;
     await quizQuestions.forEach(question => {
       setTimeout(() => {
