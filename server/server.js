@@ -9,6 +9,14 @@ const server = http.createServer(app);
 
 const io = socketio(server);
 
+io.on("connection", socket => {
+  console.log("new connection!!!", socket);
+
+  socket.on("disconnect", () => {
+    console.log("socket diconnected!!!", socket);
+  });
+});
+
 server.listen(PORT, () => {
   console.log(` 🚀  Server is running on port ${PORT}`);
 });

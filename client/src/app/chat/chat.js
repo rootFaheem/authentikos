@@ -101,9 +101,7 @@ class chat extends Component {
   render() {
     const { classes } = this.props;
 
-    const { users } = this.state;
-
-    const { messageList } = this.state;
+    const { users, messageList } = this.state;
 
     let onlineUsers = "";
     let messageLister = "";
