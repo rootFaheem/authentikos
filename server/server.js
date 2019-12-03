@@ -32,13 +32,14 @@ io.on("connection", socket => {
       .emit("message", { user: "admin", text: `${user.name} has joined!` });
 
     socket.join(user.room);
+    console.log("new user has just joined");
 
     callback();
   });
 
   // SENDING THE MESSAGE TO ROOM EMITTED FROM A USER
-  socket.on("sendMessage", (message, callback) => {
-    const user = getUser(socket.id);
+  socket.on("sendMessage", async (message, callback) => {
+    const user = await getUser(socket.id);
 
     io.to(user.room).emit("message", { user: user.name, text: message });
 

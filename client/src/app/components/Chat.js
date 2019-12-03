@@ -2,8 +2,6 @@ import React, { useState, useEffect } from "react";
 import queryString from "query-string";
 import io from "socket.io-client";
 
-
-
 let socket;
 
 const Chat = ({ location }) => {
@@ -11,7 +9,10 @@ const Chat = ({ location }) => {
 
   const [name, setName] = useState("");
   const [room, setRoom] = useState("");
+  const [message, setMessage] = useState("");
+  const [messages, setMessages] = useState([]);
 
+  // JOIN AND DISCONNECT
   useEffect(() => {
     const { name, room } = queryString.parse(location.search);
 
@@ -31,7 +32,36 @@ const Chat = ({ location }) => {
     };
   }, [ENDPOINT, location.search]);
 
-  return <div>chat</div>;
+  // MESSAGE HANDLING
+  useEffect(() => {
+    socket.on("message", message => {
+      setMessages([...messages, message]);
+    });
+  }, [messages]);
+
+  const sendMessage = event => {
+    event.preventDefault();
+
+    if (message) {
+      socket.emit("sendMessage", message, () => setMessage(""));
+    }
+  };
+
+  console.log("message:", message);
+  console.log("messages:", messages);
+
+  return (
+    <div>
+      <input
+        type="text"
+        value={message}
+        onChange={event => setMessage(event.target.value)}
+        onKeyPress={event =>
+          event.key === "Enter" ? sendMessage(event) : null
+        }
+      ></input>
+    </div>
+  );
 };
 
 export default Chat;
