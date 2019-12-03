@@ -12,8 +12,22 @@ const io = socketio(server);
 io.on("connection", socket => {
   console.log("new connection!!!");
 
+  socket.on("join", ({ name, room }, callback) => {
+    console.log("name", name);
+    console.log("room", room);
+
+    const error = true;
+
+    if (error) {
+      callback({
+        err: "some error occured"
+      });
+    }
+    // callback({ success: true });
+  });
+
   socket.on("disconnect", () => {
-    console.log("socket diconnected!!!", socket);
+    console.log("socket diconnected!!!");
   });
 });
 
