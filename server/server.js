@@ -10,7 +10,7 @@ const server = http.createServer(app);
 const io = socketio(server);
 
 io.on("connection", socket => {
-  console.log("new connection!!!", socket);
+  console.log("new connection!!!");
 
   socket.on("disconnect", () => {
     console.log("socket diconnected!!!", socket);
