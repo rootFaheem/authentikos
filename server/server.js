@@ -99,6 +99,9 @@ io.on("connection", socket => {
       });
 
       const uniqueUsers = [...new Set(userAnswers)];
+
+      console.log("uniqueUsers::", uniqueUsers);
+
       uniqueUsers.map(socketId => {
         let score = 0;
 
