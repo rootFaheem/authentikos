@@ -70,6 +70,11 @@ const Chat = ({ location }) => {
       // console.log("getQuizResults::", result);
       console.table(result.quizResults);
     });
+
+    socket.on("myresult", myResult => {
+      // console.log("getQuizResults::", result);
+      console.table("myResult::", myResult);
+    });
   }, [choice, name]);
 
   const sendMessage = event => {

@@ -92,13 +92,33 @@ io.on("connection", socket => {
 
       const quizResult = await getQuizResults();
 
-      let allUsers = [];
+      let userAnswers = [];
 
-      quizResult.quizResults.map(item => {
-        allUser.push(item.id);
+      await quizResult.quizResults.map(item => {
+        userAnswers.push(item.id);
       });
 
-      // io.to(`${socketId}`).emit('hey', 'I just met you');
+      const uniqueUsers = [...new Set(userAnswers)];
+      uniqueUsers.map(socketId => {
+        let score = 0;
+
+        for (i = 0; i < userAnswers.length; i++) {
+          if (socketId === userAnswers[i].id) {
+            quizQuestions.map(item => {
+              if (
+                item.question === userAnswers[i].question &&
+                userAnswers[i].choice === item.rightAnswer
+              ) {
+                score += 1;
+              }
+            });
+          }
+        }
+
+        console.log("socketId:", socketId);
+        console.log("score:", score);
+        io.to(socketId).emit("myresult", score);
+      });
 
       // console.log("getQuizResults:::::::", quizResult);
       socket.emit("getresult", quizResult);
