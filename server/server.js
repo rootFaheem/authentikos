@@ -83,7 +83,7 @@ io.on("connection", socket => {
           );
           callback();
         });
-      }, 5000 + offset);
+      }, 10000 + offset);
       offset += 5000;
     });
 
@@ -93,7 +93,7 @@ io.on("connection", socket => {
       const quizResult = getQuizResults();
       console.log("getQuizResults:::::::", quizResult);
       socket.emit("getresult", quizResult);
-    }, 50000);
+    }, 70000);
   });
 
   socket.on("disconnect", () => {

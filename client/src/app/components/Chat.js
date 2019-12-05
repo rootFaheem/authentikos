@@ -67,7 +67,8 @@ const Chat = ({ location }) => {
     socket.emit("playQuiz", { choice, name }, () => {});
 
     socket.on("getresult", result => {
-      console.log("getQuizResults::", result);
+      // console.log("getQuizResults::", result);
+      console.table(result.quizResults);
     });
   }, [choice, name]);
 
