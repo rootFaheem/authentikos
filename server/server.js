@@ -87,11 +87,20 @@ io.on("connection", socket => {
       offset += 5000;
     });
 
-    setTimeout(() => {
+    setTimeout(async () => {
       socket.emit("quizEnd", true);
 
-      const quizResult = getQuizResults();
-      console.log("getQuizResults:::::::", quizResult);
+      const quizResult = await getQuizResults();
+
+      let allUsers = [];
+
+      quizResult.quizResults.map(item => {
+        allUser.push(item.id);
+      });
+
+      // io.to(`${socketId}`).emit('hey', 'I just met you');
+
+      // console.log("getQuizResults:::::::", quizResult);
       socket.emit("getresult", quizResult);
     }, 70000);
   });
