@@ -56,7 +56,14 @@ const chatBox = props => {
               </ul>
             </div>
           ) : (
-            <i>Quiz will start in 1 minute...</i>
+            <div>
+              {console.log("props.quizResult", props.quizResult)}
+              {props.quizResult.length !== 0 ? (
+                <h3> you have got {props.quizResult} points out of 5</h3>
+              ) : (
+                <i>Quiz will start in 1 minute... </i>
+              )}
+            </div>
           )}
         </ul>
       </div>

@@ -17,6 +17,7 @@ const Chat = ({ location }) => {
 
   const [question, setQuestion] = useState("");
   const [choice, setChoice] = useState("");
+  const [quizResult, setQuizResult] = useState([]);
 
   // JOIN AND DISCONNECT
   useEffect(() => {
@@ -67,13 +68,13 @@ const Chat = ({ location }) => {
     socket.emit("playQuiz", { choice, name }, () => {});
 
     socket.on("getresult", result => {
-      // console.log("getQuizResults::", result);
       console.table(result.quizResults);
+      // setQuizResult(result.quizResults);
     });
 
     socket.on("myresult", myResult => {
-      // console.log("getQuizResults::", result);
       console.table("myResult::", myResult);
+      setQuizResult(myResult);
     });
   }, [choice, name]);
 
@@ -102,6 +103,7 @@ const Chat = ({ location }) => {
           question={question}
           quizEnd={quizEnd}
           choiceHandler={value => setChoice(value)}
+          quizResult={quizResult}
         ></ChatBox>
         <input
           type="text"
