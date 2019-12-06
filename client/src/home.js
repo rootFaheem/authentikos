@@ -10,7 +10,7 @@ class Home extends Component {
   };
 
   componentDidMount = () => {
-    const adminSocket = io("http://localhost:8079");
+    const adminSocket = io("192.168.1.28:8079");
 
     adminSocket.on("home", msg => {
       console.log("message:", msg);

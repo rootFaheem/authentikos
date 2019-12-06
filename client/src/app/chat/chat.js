@@ -17,7 +17,7 @@ import {
   animals
 } from "unique-names-generator";
 
-const chatSocket = io("http://localhost:8079");
+const chatSocket = io("192.168.1.28:8079");
 
 const styles = theme => ({
   root: {

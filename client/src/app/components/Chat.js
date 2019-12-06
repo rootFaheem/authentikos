@@ -7,7 +7,7 @@ import ChatBox from "../components/chatBox/chatBox";
 let socket;
 
 const Chat = ({ location }) => {
-  const ENDPOINT = "http://localhost:8079";
+  const ENDPOINT = "192.168.1.28:8079";
 
   const [name, setName] = useState("");
   const [room, setRoom] = useState("");
