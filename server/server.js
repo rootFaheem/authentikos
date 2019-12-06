@@ -65,6 +65,9 @@ io.on("connection", socket => {
         socket.emit("quiz", question);
 
         socket.on("playQuiz", async ({ choice, name }, callback) => {
+          // console.log("users  choice:", choice);
+          // console.log("users  question.rightAnswer:", question.rightAnswer);
+
           await scoreUpdate(
             socket.id,
             choice,
@@ -92,15 +95,15 @@ io.on("connection", socket => {
 
       const uniqueUsers = [...new Set(userIds)];
 
-      console.log("uniqueUsers::", uniqueUsers);
+      // console.log("uniqueUsers::", uniqueUsers);
 
       uniqueUsers.map(socketId => {
         let score = 0;
         // console.log("socketId:", socketId);
 
         for (i = 0; i < allUserResults.length; i++) {
-          console.log("socketId:", socketId);
-          console.log("allUserResults[i]:", allUserResults[i]);
+          // console.log("socketId:", socketId);
+          // console.log("allUserResults[i]:", allUserResults[i]);
 
           if (socketId === allUserResults[i].id) {
             quizQuestions.map(item => {
@@ -119,7 +122,7 @@ io.on("connection", socket => {
       });
 
       // console.log("getQuizResults:::::::", quizResult);
-      socket.emit("getresult", quizResult);
+      socket.emit("getresultsss::::::: ", allUserResults);
     }, 70000);
   });
 
