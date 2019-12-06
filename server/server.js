@@ -62,18 +62,9 @@ io.on("connection", socket => {
     let offset = 0;
     await quizQuestions.forEach(question => {
       setTimeout(() => {
-        console.log("question::", question);
         socket.emit("quiz", question);
 
         socket.on("playQuiz", async ({ choice, name }, callback) => {
-          console.log("user anser:::::", choice);
-          // console.log(
-          //   socket.id,
-          //   choice,
-          //   question.rightAnswer,
-          //   question.question
-          // );
-
           await scoreUpdate(
             socket.id,
             choice,
@@ -91,26 +82,31 @@ io.on("connection", socket => {
       socket.emit("quizEnd", true);
 
       const quizResult = await getQuizResults();
+      const allUserResults = quizResult.quizResults;
 
-      let userAnswers = [];
+      let userIds = [];
 
-      await quizResult.quizResults.map(item => {
-        userAnswers.push(item.id);
+      await allUserResults.map(item => {
+        userIds.push(item.id);
       });
 
-      const uniqueUsers = [...new Set(userAnswers)];
+      const uniqueUsers = [...new Set(userIds)];
 
       console.log("uniqueUsers::", uniqueUsers);
 
       uniqueUsers.map(socketId => {
         let score = 0;
+        // console.log("socketId:", socketId);
 
-        for (i = 0; i < userAnswers.length; i++) {
-          if (socketId === userAnswers[i].id) {
+        for (i = 0; i < allUserResults.length; i++) {
+          console.log("socketId:", socketId);
+          console.log("allUserResults[i]:", allUserResults[i]);
+
+          if (socketId === allUserResults[i].id) {
             quizQuestions.map(item => {
               if (
-                item.question === userAnswers[i].question &&
-                userAnswers[i].choice === item.rightAnswer
+                item.question === allUserResults[i].question &&
+                allUserResults[i].choice === item.rightAnswer
               ) {
                 score += 1;
               }
@@ -118,7 +114,6 @@ io.on("connection", socket => {
           }
         }
 
-        console.log("socketId:", socketId);
         console.log("score:", score);
         io.to(socketId).emit("myresult", score);
       });

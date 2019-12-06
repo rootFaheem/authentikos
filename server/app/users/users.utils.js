@@ -42,7 +42,7 @@ const scoreUpdate = async (id, choice, name, rightChoice, question) => {
     };
 
     quizResults.push(result);
-    console.log("resut pushed:::", result);
+    // console.log("resut pushed:::", result);
   }
 };
 
