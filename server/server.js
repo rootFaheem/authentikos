@@ -10,6 +10,8 @@ const io = socketio(server);
 
 const { quizQuestions } = require("./app/quiz/quizQuestions.json");
 
+const socialAuthRoutes = require("./app/auth/social/socialAuth.routes");
+
 const {
   addUser,
   removeUser,
@@ -130,6 +132,8 @@ io.on("connection", socket => {
     console.log("socket diconnected!!!");
   });
 });
+
+app.user("/api/social-auth", socialAuthRoutes);
 
 server.listen(PORT, () => {
   console.log(` 🚀  Server is running on port ${PORT}`);
