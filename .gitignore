@@ -100,3 +100,6 @@ client/build
 
 # Test Docker Compose
 docker-compose.yml
+
+# config keys
+server/configs/*
