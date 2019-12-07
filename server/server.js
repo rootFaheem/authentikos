@@ -122,7 +122,7 @@ io.on("connection", socket => {
       });
 
       // console.log("getQuizResults:::::::", quizResult);
-      socket.emit("getresultsss::::::: ", allUserResults);
+      socket.emit("getresult", allUserResults);
     }, 70000);
   });
 
