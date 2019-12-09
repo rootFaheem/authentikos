@@ -59,4 +59,27 @@ const signinWithGoogle = async (req, res, next) => {
   }
 };
 
+const googleAuthCallback = async (req, res) => {
+  const code = req.query.code;
+  try {
+    if (code) {
+      oAuth2Client.getToken(code, (err, tokens) => {
+        if (err) {
+          console.log("Error Authenticating:", err);
+        }
+
+        console.log("Successfully Authenticated");
+        oAuth2Client.setCredentials(tokens);
+        authed = true;
+        res.status(200).json({
+          success: true,
+          authed
+        });
+      });
+    }
+  } catch (err) {
+    next(err);
+  }
+};
+
 module.exports = signinWithGoogle;
