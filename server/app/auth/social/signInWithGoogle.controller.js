@@ -25,11 +25,35 @@ const signinWithGoogle = async (req, res, next) => {
       });
 
       console.log(url);
-      res.status(200).json({
+      return res.status(200).json({
         success: true,
         url
       });
     }
+
+    const gmail = google.gmail({ version: "v1", auth: "oAuth2Client" });
+
+    gmail.users.labels.list(
+      {
+        userId: "me"
+      },
+      (err, res) => {
+        if (err) return console.log("API returned an error", err);
+
+        const labels = res.data.labels;
+
+        if (labels.length) {
+          console.log("Labels: ");
+          labels.forEach(label => {
+            console.log(`- ${label.name}`);
+          });
+        } else {
+          console.log("No label found");
+        }
+      }
+    );
+
+    res.send("logged in");
   } catch (err) {
     next(err);
   }
