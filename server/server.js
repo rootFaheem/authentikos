@@ -133,7 +133,7 @@ io.on("connection", socket => {
   });
 });
 
-app.user("/api/social-auth", socialAuthRoutes);
+app.use("/api/social-auth", socialAuthRoutes);
 
 server.listen(PORT, () => {
   console.log(` 🚀  Server is running on port ${PORT}`);
