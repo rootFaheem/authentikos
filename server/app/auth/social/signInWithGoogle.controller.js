@@ -60,7 +60,7 @@ const signInWithGoogle = (req, res) => {
   }
 };
 
-app.get("/auth/google/callback", function(req, res) {
+const googleCallback = (req, res) => {
   const code = req.query.code;
   if (code) {
     // Get an access token based on our OAuth code
@@ -76,11 +76,12 @@ app.get("/auth/google/callback", function(req, res) {
       }
     });
   }
-});
+};
 
 // const port = process.env.port || 5000;
 // app.listen(port, () => console.log(`Server running at ${port}`));
 
 module.exports = {
-  signInWithGoogle
+  signInWithGoogle,
+  googleCallback
 };
