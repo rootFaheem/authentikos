@@ -15,7 +15,11 @@ const oAuth2Client = new google.auth.OAuth2(
 );
 var authed = false;
 
-app.get("/", (req, res) => {
+// app.get("/", (req, res) => {
+
+const signInWithGoogle = (req, res) => {
+  console.log("Social Signin hit");
+
   if (!authed) {
     // Generate an OAuth URL and redirect there
     const url = oAuth2Client.generateAuthUrl({
@@ -45,7 +49,7 @@ app.get("/", (req, res) => {
     );
     res.send("Logged in");
   }
-});
+};
 
 app.get("/auth/google/callback", function(req, res) {
   const code = req.query.code;
@@ -65,5 +69,9 @@ app.get("/auth/google/callback", function(req, res) {
   }
 });
 
-const port = process.env.port || 5000;
-app.listen(port, () => console.log(`Server running at ${port}`));
+// const port = process.env.port || 5000;
+// app.listen(port, () => console.log(`Server running at ${port}`));
+
+module.exports = {
+  signInWithGoogle
+};

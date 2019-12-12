@@ -1,7 +1,7 @@
 const Router = require("express").Router();
 
-const signinWithGoogleController = require("./signInWithGoogle.controller");
+const { signInWithGoogle } = require("./signInWithGoogle.controller");
 
-// Router.post("/signin-with-google", signinWithGoogleController);
+Router.post("/signin-with-google", signInWithGoogle);
 
 module.exports = Router;
