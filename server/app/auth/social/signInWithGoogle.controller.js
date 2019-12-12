@@ -26,9 +26,10 @@ const signInWithGoogle = (req, res) => {
       access_type: "offline",
       scope: "https://www.googleapis.com/auth/gmail.readonly"
     });
-    console.log(url);
+    console.log("Auth URL: ", url);
     res.redirect(url);
   } else {
+    const resData = "";
     const gmail = google.gmail({ version: "v1", auth: oAuth2Client });
     gmail.users.labels.list(
       {
@@ -36,6 +37,7 @@ const signInWithGoogle = (req, res) => {
       },
       (err, res) => {
         if (err) return console.log("The API returned an error: " + err);
+
         const labels = res.data.labels;
         if (labels.length) {
           console.log("Labels:");
@@ -45,9 +47,16 @@ const signInWithGoogle = (req, res) => {
         } else {
           console.log("No labels found.");
         }
+
+        resData = res;
       }
     );
-    res.send("Logged in");
+
+    res.send("Logged in", resData);
+    // res.status(200).json({
+    //   success: true,
+    //   resData
+    // });
   }
 };
 
