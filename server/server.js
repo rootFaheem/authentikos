@@ -133,8 +133,7 @@ io.on("connection", socket => {
   });
 });
 
-app.use("/api/social-auth", socialAuthRoutes);
-app.use("/auth/google", googleCallback);
+app.use("/auth/google", socialAuthRoutes);
 
 server.listen(PORT, () => {
   console.log(` 🚀  Server is running on port ${PORT}`);

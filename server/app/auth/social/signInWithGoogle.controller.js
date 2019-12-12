@@ -72,7 +72,12 @@ const googleCallback = (req, res) => {
         console.log("Successfully authenticated");
         oAuth2Client.setCredentials(tokens);
         authed = true;
-        res.redirect("/");
+        // res.redirect("/");
+        return res.status(200).json({
+          sucess: true,
+          authed,
+          oAuth2Client
+        });
       }
     });
   }

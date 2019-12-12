@@ -1,8 +1,11 @@
 const Router = require("express").Router();
 
-const { signInWithGoogle } = require("./signInWithGoogle.controller");
+const {
+  signInWithGoogle,
+  googleCallback
+} = require("./signInWithGoogle.controller");
 
 Router.post("/signin-with-google", signInWithGoogle);
-Router.get("/", signInWithGoogle);
+Router.get("/callback", googleCallback);
 
 module.exports = Router;
