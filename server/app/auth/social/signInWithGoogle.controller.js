@@ -22,11 +22,13 @@ const signInWithGoogle = (req, res) => {
 
   if (!authed) {
     // Generate an OAuth URL and redirect there
+    oAuth2Client.redirectUri = ["http://localhost:8079/auth/google/callback"];
     const url = oAuth2Client.generateAuthUrl({
       access_type: "offline",
       scope: "https://www.googleapis.com/auth/gmail.readonly"
     });
     console.log("Auth URL: ", url);
+
     res.redirect(url);
   } else {
     const resData = "";
@@ -52,11 +54,11 @@ const signInWithGoogle = (req, res) => {
       }
     );
 
-    res.send("Logged in", resData);
-    // res.status(200).json({
-    //   success: true,
-    //   resData
-    // });
+    console.log("resData: ", resData);
+    // res.send("Logged in", resData);
+    res.status(200).json({
+      resData
+    });
   }
 };
 
@@ -73,6 +75,7 @@ const googleCallback = (req, res) => {
         oAuth2Client.setCredentials(tokens);
         authed = true;
         // res.redirect("/");
+
         return res.status(200).json({
           sucess: true,
           authed,
